@@ -85,10 +85,11 @@ import java.awt.Color;
             //initialization of connection to server.
             //This is done first to make sure the user can connect.
             client = new Socket(SERVER_IP, SERVER_PORT);
+            //Second variable is auto flush
             out = new PrintWriter(client.getOutputStream(), true);
             in = new Scanner(client.getInputStream());
 
-            //initialization of GUI components, but not the frame.
+            //initialization of GUI components.
             chatPanel = new JPanel();
             serverChat = new JTextArea();
             clientChat = new JTextField();
@@ -116,6 +117,11 @@ import java.awt.Color;
 
                 public void keyPressed(KeyEvent e)
                 {
+                    /**
+                     * this statement has to exist in the keyPressed method
+                     * because the keyTyped method does not register 
+                     * the "VK_ENTER" key stroke.
+                     */
                     if (e.getKeyCode() == KeyEvent.VK_ENTER)
                         clientSendMessage();
                 }
@@ -135,21 +141,6 @@ import java.awt.Color;
         }
 
         /**
-         * Initializes the clientClass's extended JFrame.
-         * This is to be
-         */
-        private void initFrame()
-        {
-            this.setTitle("Chatroom");
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setSize(510, 325);
-            this.setVisible(true);
-            this.setAlwaysOnTop(true);
-            this.setResizable(false);
-            this.add(chatPanel);
-        }
-
-        /**
          * Private method that sends the message from the client chat.
          */
         private void clientSendMessage()
@@ -163,11 +154,20 @@ import java.awt.Color;
 
         public static void main(String[] args) throws Exception
         {
+            /**
+             * Initializes the client gui.
+             */
             JWSClient gui = new JWSClient();
-            gui.initFrame();
+            gui.setTitle("Chatroom");
+            gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            gui.setSize(510, 325);
+            gui.setVisible(true);
+            gui.setAlwaysOnTop(true);
+            gui.setResizable(false);
+            gui.add(chatPanel);
 
-            Thread cit = new ClientInputThread(in);
-            cit.start();
+            Thread clientInputThread = new ClientInputThread(in);
+            clientInputThread.start();
 
             boolean tru = true;
             while (tru);
@@ -185,9 +185,9 @@ import java.awt.Color;
          */
         private static class ClientInputThread extends Thread
         {
-
+            
             Scanner in;
-
+            
             public ClientInputThread(Scanner in)
             {
                 this.in = in;
@@ -208,7 +208,6 @@ import java.awt.Color;
                         catch (InterruptedException e)
                         {
                         }
-
                     serverChat.append(in.nextLine() + "\n");
                 }
             }

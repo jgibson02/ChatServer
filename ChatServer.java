@@ -19,7 +19,7 @@ public class ChatServer
             = "       \\   ,__,                                                            \n"
             + "        \\  (oo)____                                                        \n"
             + "           (__)    )\\                                                      \n"
-            + "              ||--|| *                                                       \n";
+            + "              ||--|| *                                                      \n";
 
     static ConcurrentHashMap<Socket, String> users = new ConcurrentHashMap<>();
 

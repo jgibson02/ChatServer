@@ -21,9 +21,6 @@ public class JGChatClient
         cot.start();
         cit.start();
 
-        System.out.println("For a list of available commands, type \"/help\"");
-        System.out.print("Choose a username: ");
-
         boolean tru = true;
         while (tru) {
         }

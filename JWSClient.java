@@ -1,6 +1,4 @@
-    package serverchatcollab;
-
-    import java.awt.Color;
+import java.awt.Color;
     import java.awt.Dimension;
     import java.awt.Font;
     import java.awt.event.ActionEvent;
@@ -32,7 +30,7 @@
         /**
          * Server IP, Port
          */
-        static private final String SERVER_IP = "148.137.141.3";
+        static private final String SERVER_IP = "localhost";
         static private final int SERVER_PORT = 9001;
 
         /**
